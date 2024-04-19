@@ -3,13 +3,13 @@ import psutil
 import win32con
 import win32gui
 import win32api
+import logging
 
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-"""
-Borderless full-screen for Supreme Commander Forged Alliance
-"""
+logging.info("Borderless full-screen for Supreme Commander Forged Alliance!")
+logging.info("This script will automatically put the game into borderless mode when it detects the process.")
 
-# Function to handle the window
 def handle_window(hwnd):
     # Set the window style to remove borders
     style = win32gui.GetWindowLong(hwnd, win32con.GWL_STYLE)
@@ -30,5 +30,5 @@ while True:
         # Find the window titled "Forged Alliance"
         hwnd = win32gui.FindWindow(None, 'Forged Alliance')
         if hwnd != 0:
-            handle_window(hwnd)  # Call the function to handle the window
+            handle_window(hwnd)
     time.sleep(10)
