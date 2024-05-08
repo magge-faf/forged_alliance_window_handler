@@ -35,6 +35,12 @@ def is_borderless(hwnd):
 
 def handle_window(hwnd):
     global previous_borderless_state
+
+    if win32gui.GetWindowPlacement(hwnd)[1] != win32con.SW_SHOWMAXIMIZED:
+        # Maximize the window before removing borders, otherwise it will pixelate
+        l_param = win32api.MAKELONG(0, 0)
+        win32gui.PostMessage(hwnd, win32con.WM_NCLBUTTONDBLCLK, win32con.HTCAPTION, l_param)
+
     current_borderless_state = is_borderless(hwnd)
     if not current_borderless_state and not previous_borderless_state:
         # Remove window borders
